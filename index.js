@@ -23,7 +23,7 @@ function submitLog({ message = "", fileName, basePath, type = "", cb = (value) =
     if (err) {
       shell.mkdir('-p', dir)
       fs.writeFile(fileDir, `========================\n${fileName.split(".")[0]}\n================================================================================\n\n${message}\n\n================================================================================`, e => {
-        console.error(e)
+        if (e) console.error(e)
       })
     }
     else {
@@ -31,7 +31,7 @@ function submitLog({ message = "", fileName, basePath, type = "", cb = (value) =
         if (err) console.error(err)
         else {
           fs.writeFile(fileDir, `${file}================================================================================\n\n${message}\n\n`, e => {
-            console.error(e)
+            if (e) console.error(e)
           })
         }
       })
@@ -45,7 +45,7 @@ function fileCounter(type, basePath, cb = (value) => { }) {
   const fileDir = basePath + "/file-counter.log"
   fs.access(fileDir, err => {
     if (err) {
-      fs.writeFile(fileDir, type === 'logs' ? `logs = 1\nerrors = 0` : `logs = 0\nerrors = 1`, e => { console.error(e) })
+      fs.writeFile(fileDir, type === 'logs' ? `logs = 1\nerrors = 0` : `logs = 0\nerrors = 1`, e => { if (e) console.error(e) })
     }
     else {
       fs.readFile(fileDir, 'utf8', (err, file) => {
