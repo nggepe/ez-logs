@@ -15,4 +15,7 @@ It is a node-js simple logger.
 const log = require('@nggepe/ez-logs')
 ```
 
-# Using
+# Usage
+
+This. package used to write logs file into your projects.
+so you can create your own helper to declare the log.
