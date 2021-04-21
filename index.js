@@ -37,7 +37,7 @@ function submitLog({ message = "", fileName, basePath, type = "", cb = (value) =
 }
 
 function fileCounter(type, basePath, cb = (value) => { }) {
-  const fileDir = basePath + "/file-counter.log"
+  const fileDir = basePath + "/counter.log"
   fs.access(fileDir, err => {
     if (err) {
       fs.writeFile(fileDir, type === 'logs' ? `logs = 1\nerrors = 0` : `logs = 0\nerrors = 1`, e => {
