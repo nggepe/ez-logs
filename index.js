@@ -53,21 +53,25 @@ function fileCounter(type, basePath, cb = (value) => { }) {
             let el = v.split(" = ")
             data[el[0]] = parseInt(el[1])
           })
-          data[type] += 1
-          let toCb = {}
-          toCb[type] = data[type]
-          cb(toCb)
-
-          let toWrite = []
-          for (const key in data) {
-            toWrite.push(`${key} = ${data[key]}`)
-          }
-
-          fs.writeFile(fileDir, toWrite.join("\n"), e => {
-            if (e) console.error(e)
-          })
+          if (typeof data[type] !== undefined) writeTheCounter(data, cb, type)
         }
       })
     }
+  })
+}
+
+function writeTheCounter(data, cb, type) {
+  data[type] += 1
+  let toCb = {}
+  toCb[type] = data[type]
+  cb(toCb)
+
+  let toWrite = []
+  for (const key in data) {
+    toWrite.push(`${key} = ${data[key]}`)
+  }
+
+  fs.writeFile(fileDir, toWrite.join("\n"), e => {
+    if (e) console.error(e)
   })
 }
