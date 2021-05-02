@@ -1,7 +1,7 @@
 {
   "name": "@nggepe/ez-logs",
-  "version": "1.0.2",
-  "description": "",
+  "version": "1.0.3",
+  "description": "an ez-logger",
   "main": "index.js",
   "scripts": {
     "test": "node index.js"
