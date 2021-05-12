@@ -19,3 +19,31 @@ const log = require('@nggepe/ez-logs')
 
 This. package used to write logs file into your projects.
 so you can create your own helper to declare the log.
+
+example helper in express:
+
+```javascript
+const ezLog = require('@nggepe/ez-logs')
+const basePath = __dirname
+module.exports = {
+  log: () => {
+    const dir = path.join(basePath, "log")
+    const logs = ezLog({ basePath: dir })
+    return {
+      sign: (req) => logs.log(`${JSON.stringify(req.method)} ${JSON.stringify(req.url)}\nPARAMS:\t${JSON.stringify(req.params)}\nQUERY:\t${JSON.stringify(req.query)}\nHEADERS:\t${JSON.stringify(req.headers)}\nBODY:\t${JSON.stringify(req.body)}`,
+        (totalLog) => {
+          // console.log(totalLog)
+        }),
+      res: (req, res) => logs.log(`${JSON.stringify(req.method)} ${JSON.stringify(req.url)}\nPARAMS:\t${JSON.stringify(req.params)}\nQUERY:\t${JSON.stringify(req.query)}\nHEADERS:\t${JSON.stringify(req.headers)}\nBODY:\t${JSON.stringify(req.body)}\nRESPONSE: ${JSON.stringify(res)}`,
+        (totalLog) => {
+          // console.log(totalLog)
+        }),
+      error: (err, req) => logs.error(`${JSON.stringify(req.method)} ${JSON.stringify(req.url)}\nPARAMS:\t${JSON.stringify(req.params)}\nQUERY:\t${JSON.stringify(req.query)}\nHEADERS:\t${JSON.stringify(req.headers)}\nBODY:\t${JSON.stringify(req.body)}\nERROR:\t${err}`,
+        (totalError) => {
+          // console.log(totalError)
+        }
+      )
+    }
+  }
+}
+```
